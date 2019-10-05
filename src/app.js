@@ -17,6 +17,7 @@ const jwtSign = promisify(jwt.sign.bind(jwt))
 const jwtVerify = promisify(jwt.verify.bind(jwt))
 
 const db = sqlite('data/db.sqlite3')
+db.defaultSafeIntegers(true)
 
 const flags = {
   DEV: 1 << 0,
