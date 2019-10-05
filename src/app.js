@@ -178,6 +178,7 @@ http
           }
           res.end(
             JSON.stringify({
+              uid: user.id.toString(),
               uname: user.name,
               avatar,
               flags: userFlags,
