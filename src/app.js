@@ -167,21 +167,22 @@ http
           if (user.avatar !== null) {
             avatar = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}`
           }
-          let userFlags = []
+          let userOutFlags = []
+          const userDbFlags = user.flags.toNumber()
           Object.entries(flags).forEach(([key, flag]) => {
-            if (user.flags & (flag !== 0)) {
-              userFlags.push(key)
+            if (userDbFlags & (flag !== 0)) {
+              userOutFlags.push(key)
             }
           })
           if (user.faction !== null) {
-            userFlags.push(factionIds[user.faction])
+            userOutFlags.push(factionIds[user.faction.toNumber()])
           }
           res.end(
             JSON.stringify({
               uid: user.id.toString(),
               uname: user.name,
               avatar,
-              flags: userFlags,
+              flags: userOutFlags,
               stats: {}
             })
           )
