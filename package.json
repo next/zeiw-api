@@ -2,7 +2,7 @@
   "name": "zeiw-api",
   "license": "MIT",
   "scripts": {
-    "start": "node app.js"
+    "start": "node src/app.js"
   },
   "husky": {
     "hooks": {
