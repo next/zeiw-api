@@ -1,0 +1,14 @@
+{
+  "name": "zeiw-api",
+  "version": "0.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "better-sqlite3": "^5.4.3",
+    "dotenv": "^8.1.0",
+    "got": "^9.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "raw-body": "^2.4.1"
+  }
+}
