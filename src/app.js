@@ -36,8 +36,6 @@ Object.entries(factions).forEach(([key, id]) => {
   factionIds[id] = key
 })
 
-const factionList = Object.keys(factions)
-
 db.exec(
   'create table if not exists users (id integer primary key not null, name text not null, avatar text, access_token text not null, refresh_token text not null, flags integer not null, faction integer)'
 )
@@ -200,14 +198,16 @@ http
           if (
             typeof body !== 'object' ||
             body === null ||
-            typeof body.faction !== 'string' ||
-            !factionList.includes(body.faction)
+            typeof body.faction !== 'number' ||
+            !Number.isInteger(body.faction) ||
+            body.faction < 0 ||
+            body.faction > 2
           ) {
             sendError(400, 'The faction is invalid.')
             return
           }
           const factionResult = editFactionStatement.run(
-            factions[body.faction],
+            body.faction,
             sqlite.Integer(tokenData.id)
           )
           if (factionResult.changes === 0) {
