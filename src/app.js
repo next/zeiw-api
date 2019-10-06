@@ -18,6 +18,7 @@ const jwtVerify = promisify(jwt.verify.bind(jwt))
 
 const db = sqlite('data/db.sqlite3')
 db.defaultSafeIntegers(true)
+db.pragma('journal_mode = WAL')
 
 const flags = {
   DEV: 1 << 0,
@@ -47,6 +48,9 @@ const getUserStatement = db.prepare(
   'select id, name, avatar, flags, faction from users where id=?'
 )
 const editFactionStatement = db.prepare('update users set faction=? where id=?')
+const editLoginStatement = db.prepare(
+  'update users set name=?, avatar=?, access_token=?, refresh_token=? where id=?'
+)
 
 http
   .createServer(async (req, res) => {
@@ -108,7 +112,14 @@ http
             sendError(403, 'Discord authentication failed.')
             return
           }
-          try {
+          const editResult = editLoginStatement.run(
+            userData.username,
+            userData.avatar,
+            tokenRes.access_token,
+            tokenRes.refresh_token,
+            sqlite.Integer(userData.id)
+          )
+          if (editResult.changes === 0) {
             registerStatement.run(
               sqlite.Integer(userData.id),
               userData.username,
@@ -118,10 +129,6 @@ http
               0,
               null
             )
-          } catch (e) {
-            if (!e instanceof sqlite.SqliteError) {
-              throw e
-            }
           }
           const token = await jwtSign(
             {
