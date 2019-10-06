@@ -175,7 +175,7 @@ http
           let userOutFlags = []
           const userDbFlags = user.flags.toNumber()
           Object.entries(flags).forEach(([key, flag]) => {
-            if (userDbFlags & (flag !== 0)) {
+            if ((userDbFlags & flag) !== 0) {
               userOutFlags.push(key)
             }
           })
