@@ -371,10 +371,10 @@ get-stream@^5.0.0, get-stream@^5.1.0:
   dependencies:
     pump "^3.0.0"
 
-got@^10.0.0:
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/got/-/got-10.0.0.tgz#de5794240952e81784982a372d936d0be05998e5"
-  integrity sha512-WbswXguxMWIbHOPFN4T/6OV7xGSg8IVThXtvVzsrNUeJSfSF4xgpuQ4WsfqQ8dsEKPqJuCz0UTOlqUsRZIlMwA==
+got@^10.0.1:
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/got/-/got-10.0.1.tgz#0c9eb81a7e5e3baca2dddd611a4bd7c054e31fdd"
+  integrity sha512-lXOWDVJczIX4uOZG5CRSlIzNAGqft40Kj7/rLSccH8y9GKs1a86rO/+23CC4kF8OdHFazapX3mI6gZPqDrIAfA==
   dependencies:
     "@sindresorhus/is" "^1.0.0"
     "@szmarczak/http-timer" "^3.1.0"
