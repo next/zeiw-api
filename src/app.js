@@ -1,10 +1,11 @@
-const { promisify } = require('util')
-const http = require('http')
-require('dotenv').config()
-const got = require('got')
-const sqlite = require('better-sqlite3')
-const jwt = require('jsonwebtoken')
 const getRawBody = require('raw-body')
+const got = require('got')
+const http = require('http')
+const jwt = require('jsonwebtoken')
+const { promisify } = require('util')
+const sqlite = require('better-sqlite3')
+
+require('dotenv').config()
 
 const envPort = parseInt(process.env.APP_PORT, 10)
 const envDiscordId = process.env.APP_DISCORD_ID
@@ -44,9 +45,7 @@ db.exec(
 const registerStatement = db.prepare(
   'insert into users (id, name, avatar, access_token, refresh_token, flags, faction) values(?, ?, ?, ?, ?, ?, ?)'
 )
-const getUserStatement = db.prepare(
-  'select id, name, avatar, flags, faction from users where id=?'
-)
+const getUserStatement = db.prepare('select id, name, avatar, flags, faction from users where id=?')
 const editFactionStatement = db.prepare('update users set faction=? where id=?')
 const editLoginStatement = db.prepare(
   'update users set name=?, avatar=?, access_token=?, refresh_token=? where id=?'
@@ -86,27 +85,31 @@ http
           let tokenRes
           try {
             tokenRes = JSON.parse(
-              (await got({
-                url: 'https://discordapp.com/api/v6/oauth2/token',
-                method: 'POST',
-                body: {
-                  client_id: envDiscordId,
-                  client_secret: envDiscordSecret,
-                  grant_type: 'authorization_code',
-                  code: params.get('code'),
-                  redirect_uri: `${envApiOrigin}/v1/login`,
-                  scope: 'identify'
-                },
-                form: true
-              })).body
+              (
+                await got({
+                  url: 'https://discordapp.com/api/v6/oauth2/token',
+                  method: 'POST',
+                  body: {
+                    client_id: envDiscordId,
+                    client_secret: envDiscordSecret,
+                    grant_type: 'authorization_code',
+                    code: params.get('code'),
+                    redirect_uri: `${envApiOrigin}/v1/login`,
+                    scope: 'identify'
+                  },
+                  form: true
+                })
+              ).body
             )
             userData = JSON.parse(
-              (await got({
-                url: 'https://discordapp.com/api/v6/users/@me',
-                headers: {
-                  authorization: `Bearer ${tokenRes.access_token}`
-                }
-              })).body
+              (
+                await got({
+                  url: 'https://discordapp.com/api/v6/users/@me',
+                  headers: {
+                    authorization: `Bearer ${tokenRes.access_token}`
+                  }
+                })
+              ).body
             )
           } catch (e) {
             sendError(403, 'Discord authentication failed.')
@@ -148,13 +151,9 @@ http
       } else if (splitUrl[0] === '/v1/user') {
         let tokenData
         try {
-          tokenData = await jwtVerify(
-            req.headers.authorization,
-            envTokenSecret,
-            {
-              issuer: 'zeiw:login'
-            }
-          )
+          tokenData = await jwtVerify(req.headers.authorization, envTokenSecret, {
+            issuer: 'zeiw:login'
+          })
         } catch (e) {
           sendError(403, 'Token invalid.')
           return
@@ -213,10 +212,7 @@ http
             sendError(400, 'The faction is invalid.')
             return
           }
-          const factionResult = editFactionStatement.run(
-            body.faction,
-            sqlite.Integer(tokenData.id)
-          )
+          const factionResult = editFactionStatement.run(body.faction, sqlite.Integer(tokenData.id))
           if (factionResult.changes === 0) {
             sendError(404, 'User not found.')
             return
