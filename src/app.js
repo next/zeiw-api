@@ -1,9 +1,9 @@
-const getRawBody = require('raw-body')
-const got = require('got')
-const http = require('http')
-const jwt = require('jsonwebtoken')
-const { promisify } = require('util')
-const sqlite = require('better-sqlite3')
+import getRawBody from 'raw-body'
+import got from 'got'
+import http from 'http'
+import jwt from 'jsonwebtoken'
+import { promisify } from 'util'
+import sqlite from 'better-sqlite3'
 
 require('dotenv').config()
 
@@ -89,15 +89,14 @@ http
                 await got({
                   url: 'https://discordapp.com/api/v6/oauth2/token',
                   method: 'POST',
-                  body: {
+                  form: {
                     client_id: envDiscordId,
                     client_secret: envDiscordSecret,
                     grant_type: 'authorization_code',
                     code: params.get('code'),
                     redirect_uri: `${envApiOrigin}/v1/login`,
                     scope: 'identify'
-                  },
-                  form: true
+                  }
                 })
               ).body
             )
@@ -155,7 +154,7 @@ http
             issuer: 'zeiw:login'
           })
         } catch (e) {
-          sendError(403, 'Token invalid.')
+          sendError(403, 'Invalid token.')
           return
         }
         if (req.method === 'GET') {
@@ -192,13 +191,13 @@ http
           )
         } else if (req.method === 'PATCH') {
           if (req.headers['content-type'] !== 'application/json') {
-            sendError(400, 'Request body must be json.')
+            sendError(400, 'Request body must be valid JSON.')
           }
           let body
           try {
             body = JSON.parse(await getRawBody(req))
           } catch (e) {
-            sendError(400, 'Body parse error.')
+            sendError(400, 'Body parsing error.')
             return
           }
           if (
@@ -209,7 +208,7 @@ http
             body.faction < 0 ||
             body.faction > 2
           ) {
-            sendError(400, 'The faction is invalid.')
+            sendError(400, 'Invalid faction.')
             return
           }
           const factionResult = editFactionStatement.run(body.faction, sqlite.Integer(tokenData.id))
@@ -227,9 +226,9 @@ http
       }
     } catch (e) {
       console.error(e)
-      sendError(500, 'Internal error')
+      sendError(500, 'Internal server error.')
     }
   })
   .listen(envPort, '127.0.0.1', () => {
-    console.log(`listening on 127.0.0.1:${envPort}`)
+    console.log(`Server ready @ http://localhost:${envPort}`)
   })
