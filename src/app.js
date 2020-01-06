@@ -166,7 +166,7 @@ http
           res.writeHead(200, {
             'content-type': 'application/json'
           })
-          let avatar = 'https://cdn.zeiw.me/icon.png'
+          let avatar = 'https://play.zeiw.me/images/default.png'
           if (user.avatar !== null) {
             avatar = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}`
           }
