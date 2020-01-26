@@ -2,7 +2,8 @@
   "name": "zeiw-api",
   "license": "MIT",
   "scripts": {
-    "start": "node -r esm src/app.js"
+    "start": "node -r esm src/app.js",
+    "test": "echo 👀"
   },
   "dependencies": {
     "better-sqlite3": "^5.4.3",
