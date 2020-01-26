@@ -166,7 +166,7 @@ http
           res.writeHead(200, {
             'content-type': 'application/json'
           })
-          let avatar = 'https://play.zeiw.me/images/default.png'
+          let avatar = 'https://zeiw.pnfc.re/play/images/default.png'
           if (user.avatar !== null) {
             avatar = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}`
           }
@@ -230,5 +230,5 @@ http
     }
   })
   .listen(envPort, '127.0.0.1', () => {
-    console.log(`Server ready @ http://localhost:${envPort}`)
+    console.log(`🚀 Server ready at http://localhost:${envPort}/`)
   })
