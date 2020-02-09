@@ -8,14 +8,14 @@
   "dependencies": {
     "better-sqlite3": "^5.4.3",
     "dotenv": "^8.2.0",
-    "got": "^10.2.2",
+    "got": "^10.5.5",
     "jsonwebtoken": "^8.5.1",
     "raw-body": "^2.4.1"
   },
   "devDependencies": {
     "esm": "^3.2.25",
     "husky": "^4.2.1",
-    "prettier": "1.19.1",
+    "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1"
   },
   "husky": {
