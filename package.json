@@ -6,7 +6,7 @@
     "test": "echo 👀"
   },
   "dependencies": {
-    "better-sqlite3": "^5.4.3",
+    "better-sqlite3": "^6.0.1",
     "dotenv": "^8.2.0",
     "got": "^10.5.5",
     "jsonwebtoken": "^8.5.1",
