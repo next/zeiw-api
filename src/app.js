@@ -24,13 +24,13 @@ db.pragma('journal_mode = WAL')
 const flags = {
   DEV: 1 << 0,
   MOD: 1 << 1,
-  BETA: 1 << 2
+  BETA: 1 << 2,
 }
 
 const factions = {
   PHOENIX_RIDERS: 0,
   WINTER_DRAGONS: 1,
-  DEMON_BRIGADE: 2
+  DEMON_BRIGADE: 2,
 }
 
 const factionIds = {}
@@ -66,18 +66,18 @@ http
       }
       const sendError = (status, message) => {
         res.writeHead(status, {
-          'content-type': 'application/json'
+          'content-type': 'application/json',
         })
         res.end(
           JSON.stringify({
-            message
+            message,
           })
         )
       }
       if (splitUrl[0] === '/v1/login' && req.method === 'GET') {
         if (params.get('code') === null) {
           res.writeHead(302, {
-            location: `https://discordapp.com/api/oauth2/authorize?client_id=${envDiscordId}&redirect_uri=${envApiOrigin}/v1/login&response_type=code&scope=identify&prompt=none`
+            location: `https://discordapp.com/api/oauth2/authorize?client_id=${envDiscordId}&redirect_uri=${envApiOrigin}/v1/login&response_type=code&scope=identify&prompt=none`,
           })
           res.end('')
         } else {
@@ -95,8 +95,8 @@ http
                     grant_type: 'authorization_code',
                     code: params.get('code'),
                     redirect_uri: `${envApiOrigin}/v1/login`,
-                    scope: 'identify'
-                  }
+                    scope: 'identify',
+                  },
                 })
               ).body
             )
@@ -105,8 +105,8 @@ http
                 await got({
                   url: 'https://discordapp.com/api/v6/users/@me',
                   headers: {
-                    authorization: `Bearer ${tokenRes.access_token}`
-                  }
+                    authorization: `Bearer ${tokenRes.access_token}`,
+                  },
                 })
               ).body
             )
@@ -135,15 +135,15 @@ http
           const token = await jwtSign(
             {
               id: userData.id,
-              iss: 'zeiw:login'
+              iss: 'zeiw:login',
             },
             envTokenSecret,
             {
-              noTimestamp: true
+              noTimestamp: true,
             }
           )
           res.writeHead(302, {
-            location: `${envPlayOrigin}/cb.html?uc=${encodeURIComponent(token)}`
+            location: `${envPlayOrigin}/cb.html?uc=${encodeURIComponent(token)}`,
           })
           res.end('')
         }
@@ -151,7 +151,7 @@ http
         let tokenData
         try {
           tokenData = await jwtVerify(req.headers.authorization, envTokenSecret, {
-            issuer: 'zeiw:login'
+            issuer: 'zeiw:login',
           })
         } catch (e) {
           sendError(403, 'Invalid token.')
@@ -164,7 +164,7 @@ http
             return
           }
           res.writeHead(200, {
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           })
           let avatar = 'https://zeiw.pnfc.re/play/images/default.png'
           if (user.avatar !== null) {
@@ -186,7 +186,7 @@ http
               uname: user.name,
               avatar,
               flags: userOutFlags,
-              stats: {}
+              stats: {},
             })
           )
         } else if (req.method === 'PATCH') {
