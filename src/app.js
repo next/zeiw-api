@@ -119,11 +119,11 @@ http
             userData.avatar,
             tokenRes.access_token,
             tokenRes.refresh_token,
-            sqlite.Integer(userData.id)
+            BigInt(userData.id)
           )
           if (editResult.changes === 0) {
             registerStatement.run(
-              sqlite.Integer(userData.id),
+              BigInt(userData.id),
               userData.username,
               userData.avatar,
               tokenRes.access_token,
@@ -158,7 +158,7 @@ http
           return
         }
         if (req.method === 'GET') {
-          const user = getUserStatement.get(sqlite.Integer(tokenData.id))
+          const user = getUserStatement.get(BigInt(tokenData.id))
           if (user === undefined) {
             sendError(404, 'User not found.')
             return
@@ -211,7 +211,7 @@ http
             sendError(400, 'Invalid faction.')
             return
           }
-          const factionResult = editFactionStatement.run(body.faction, sqlite.Integer(tokenData.id))
+          const factionResult = editFactionStatement.run(body.faction, BigInt(tokenData.id))
           if (factionResult.changes === 0) {
             sendError(404, 'User not found.')
             return
