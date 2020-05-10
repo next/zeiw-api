@@ -171,14 +171,14 @@ http
             avatar = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}`
           }
           let userOutFlags = []
-          const userDbFlags = user.flags
+          const userDbFlags = Number(user.flags)
           Object.entries(flags).forEach(([key, flag]) => {
             if ((userDbFlags & flag) !== 0) {
               userOutFlags.push(key)
             }
           })
           if (user.faction !== null) {
-            userOutFlags.push(factionIds[user.faction])
+            userOutFlags.push(factionIds[Number(user.faction)])
           }
           res.end(
             JSON.stringify({
