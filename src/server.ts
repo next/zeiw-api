@@ -149,8 +149,9 @@ http
 
 					let avatar = "https://zeiw.pnfc.re/play/images/default.png"
 
-					if (user.avatar !== null)
-						avatar = `https://cdn.discord.com/avatars/${user.id}/${user.avatar}`
+					if (user.avatar !== null) {
+						avatar = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}`
+					}
 
 					let flags = getFlags(user?.flags, FLAGS)
 
