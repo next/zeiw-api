@@ -1,31 +1,30 @@
 {
-  "name": "zeiw-api",
-  "license": "MIT",
-  "scripts": {
-    "start": "node -r esm src/app.js",
-    "test": "echo 👀"
-  },
-  "dependencies": {
-    "better-sqlite3": "^7.0.1",
-    "dotenv": "^8.2.0",
-    "got": "^11.0.1",
-    "jsonwebtoken": "^8.5.1",
-    "raw-body": "^2.4.1"
-  },
-  "devDependencies": {
-    "esm": "^3.2.25",
-    "husky": "^4.2.1",
-    "prettier": "^2.0.1",
-    "pretty-quick": "^2.0.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
-  },
-  "prettier": {
-    "semi": false,
-    "printWidth": 100,
-    "singleQuote": true
-  }
+	"name": "zeiw-api",
+	"license": "MIT",
+	"main": "src/server.ts",
+	"scripts": {
+		"dev": "tsnd .",
+		"start": "ts-node ."
+	},
+	"dependencies": {
+		"better-sqlite3": "7.0.1",
+		"dotenv": "8.2.0",
+		"got": "11.1.4",
+		"jsonwebtoken": "8.5.1",
+		"raw-body": "2.4.1"
+	},
+	"devDependencies": {
+		"@types/better-sqlite3": "5.4.0",
+		"@types/jsonwebtoken": "8.5.0",
+		"@types/node": "14.0.4",
+		"prettier": "2.0.5",
+		"ts-node": "8.10.1",
+		"ts-node-dev": "1.0.0-pre.44",
+		"typescript": "3.9.3"
+	},
+	"prettier": {
+		"semi": false,
+		"useTabs": true,
+		"trailingComma": "all"
+	}
 }
