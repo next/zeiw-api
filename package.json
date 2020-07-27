@@ -16,7 +16,7 @@
 	"devDependencies": {
 		"@types/better-sqlite3": "5.4.0",
 		"@types/jsonwebtoken": "8.5.0",
-		"@types/node": "14.0.14",
+		"@types/node": "14.0.26",
 		"prettier": "2.0.5",
 		"ts-node": "8.10.2",
 		"ts-node-dev": "1.0.0-pre.49",
