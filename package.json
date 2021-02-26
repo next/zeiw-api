@@ -9,7 +9,7 @@
 	"dependencies": {
 		"better-sqlite3": "7.1.2",
 		"dotenv": "8.2.0",
-		"got": "11.8.1",
+		"got": "11.8.2",
 		"jsonwebtoken": "8.5.1",
 		"raw-body": "2.4.1"
 	},
