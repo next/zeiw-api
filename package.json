@@ -7,7 +7,7 @@
 		"start": "ts-node ."
 	},
 	"dependencies": {
-		"better-sqlite3": "7.4.0",
+		"better-sqlite3": "7.4.1",
 		"dotenv": "10.0.0",
 		"got": "11.8.2",
 		"jsonwebtoken": "8.5.1",
